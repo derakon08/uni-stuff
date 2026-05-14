@@ -1,0 +1,28 @@
+The domain model help to get an overview of the software; as well as setting down the bases to a better, more robust database arquitecture. It can also help delimit the logic models.
+
+Larman:
+First we can use the use cases to catch any nouns and actors in a case. We can also add nouns derived from a verb if possible.
+Each noun should correctly map to a possible class in the future, or an object in general terms.
+
+Shaller/Mellor
+The second aims to classify each element inside categories.
+Information, event, interface, relation, and control.
+Information means business objects, like the client, product or process.
+Event means any actions, like a payment.
+Interface means any interface, possibly meaning the kind of class.
+Relation means classes which are meant to hold information for other purposes. It can't stand on it's own, as it holds no real value outside of the information it holds, so it must act as a way of processing information.
+Control means the logic. Quite possibly meaning anything that doesn't relate to the business, but instead to the program itself.
+
+if a CLIENT *orders* a PRODUCT, and has to *pay* for it before they can *take* it.
+Client -> Order -> Product -> Payment
+Which would make three objects already.
+
+The first three, product, order and product are information classes. The payment is an event, which confirms if the client can take the product or otherwise.
+We'd also need some sort of interface, and some logic consisting of the price calculations or query, but that depends on the business goals, like if they can't really give you more than a certain amount, adding the need for more event and control classes. 
+
+Both of these are useful to identify classes in a formal way, which makes easier communicating with the client.
+
+The diagram is very inconvenient and i hate it, because i can't explain it in text.
+Imagine class diagram but instead of attributes and methods, we have literal explanations.
+Better yet? Imagine a domain model diagram.
+
