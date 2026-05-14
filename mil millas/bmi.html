@@ -6,6 +6,46 @@
   <title>Document</title>
 </head>
 
+<style>
+  body{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    height: 100dvh;
+
+    overflow: hidden;
+    background-color:peru;
+  }
+
+  input{
+    min-height: 30px;
+  }
+
+  .form_list{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 1vh;
+  }
+
+  #button{
+    min-height: 30px;
+    border-radius: 3px;
+  }
+
+  #app{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+
+    padding: 3% 3% 5%;
+
+    background-color: whitesmoke;
+    border: 10px solid black;
+  }
+</style>
+
 <body>
   <div id="app">
     <h1>Calcule su masa muscular</h1>
@@ -16,7 +56,9 @@
       <input type="number" id="peso" placeholder="Ingrese su peso (kg)"></input><br>
       <br>
       <button type="button" id="button">Calcular</button>
+      <br>
     </form>
+    <p id="display">BMI: </p>
   </div>
 
   <script>
@@ -25,6 +67,8 @@
     let person_name = document.getElementById("nombre").value;
     let person_height = document.getElementById("estatura").value;
     let person_weight = document.getElementById("peso").value;
+    let bmi = String(person_weight / (person_height**2));
+    document.getElementById("display").textContent = "BMI: " + bmi;
 
     alert(
       "**********************************************\n" +
@@ -34,7 +78,7 @@
       "\n\n Nombre:         " + person_name + 
       "\n\n Estatura (m):   " + person_height + 
       "\n\n Peso (Kg):      " + person_weight + 
-      "\n\n BMI:            " + String(person_weight / (person_height**2))
+      "\n\n BMI:            " + bmi
     );
     
 };
