@@ -6,13 +6,225 @@
 
         <title>Calculadora(esta)</title>
     </head>
+
     <style>
+        body{
+            background-color: midnightblue;
+            border: solid black;
+            
+            overflow: hidden;
+            height: 100dvh;
+        }
+
+        .numpad_btn{
+            grid-column: span 1;
+            grid-row: span 1;
+
+            min-width: min-content;
+            min-height: 5dvh;
+        }
+
+        .spacer{
+            min-height: 10%;
+        }
+
+        .number_btn{
+            background-color:orange;
+            border: solid orange;
+            border-radius: 3px;
+        }
+
+        .number_btn:hover{
+            background-color: #ea6200;
+            border: 1px solid #a95a22;
+        }
+
+        .number_btn:active {
+            background-color: orange;
+            border: 1px solid rgb(224, 146, 0);
+        }
+
+        #calculator{
+            margin: auto;
+            min-height: min-content;
+            min-width: min-content;
+            max-width: 20%;
+            padding: 10px;
+
+            background-color: gray;
+            border-radius: 10%;
+        }
+
+        #display{
+            display:flex;
+            flex-direction: column;
+            
+
+            min-width: 80%;
+            min-height: 30%;
+            max-height: 30%;
+            margin-bottom: 3%;
+            padding: 5px;
+            text-align: right;
+
+            background-color: white;
+            color: black;
+            border-radius: 3px;
+        }
+
+        #button_pad{
+            display: grid;
+            gap: 10px;
+            grid-template-columns: repeat(4, minmax(0, 1fr));
+            grid-template-rows: repeat(5, 1fr);
+
+            min-width: min-content;
+        }
+
+        #zero{
+            grid-column: span 2;
+        }
 
     </style>
-    <body>
 
+    <body>
+        <div class="spacer"></div>
+        <div id="calculator">
+            <div id="display">
+                <p id="display_small">0</p>
+                <p id="display_big">0</p>
+            </div>
+
+            <div id="button_pad">
+                <button class="numpad_btn" id="clear" onclick="Clear()">C</button>
+                <button class="numpad_btn" id="backspace" onclick="Delete()">␡</button>
+                <button class="numpad_btn operation_btn" value="%">%</button>
+                <button class="numpad_btn operation_btn" value="*">∗</button>
+
+                <button class="numpad_btn number_btn" value="7">7</button>
+                <button class="numpad_btn number_btn" value="8">8</button>
+                <button class="numpad_btn number_btn" value="9">9</button>
+                <button class="numpad_btn operation_btn" value="/">÷</button>
+                <button class="numpad_btn number_btn" value="4">4</button>
+                <button class="numpad_btn number_btn" value="5">5</button>
+                <button class="numpad_btn number_btn" value="6">6</button>
+                <button class="numpad_btn operation_btn" value="+">+</button>
+                <button class="numpad_btn number_btn" value="1">1</button>
+                <button class="numpad_btn number_btn" value="2">2</button>
+                <button class="numpad_btn number_btn" value="3">3</button>
+                <button class="numpad_btn operation_btn" value="-">-</button>
+                <button class="numpad_btn number_btn" id="zero" value="0">0</button>
+                <button class="numpad_btn number_btn" value=".">.</button>
+
+                <button class="numpad_btn" id="confirm_expression" onclick="Calculate()"> = </button>
+            </div>
+        </div>
     </body>
+
     <script>
-        
+        let display_small = document.getElementById("display_small");
+        let display_big = document.getElementById("display_big");
+        let left_op = "";
+        let right_op = "";
+        let operation = "";
+        let result = 0;
+
+        const operations = {
+            "/": (a, b) => {result = a / b},
+            "*": (a, b) => {result = a * b},
+            "+": (a, b) => {result = a + b},
+            "-": (a, b) => {result = a - b},
+            "%": (a, b) => {result = a % b}
+        };
+
+        function SetUp(){
+            for (let item of document.getElementsByClassName("number_btn")){
+                item.addEventListener("click", (event) => {
+                 _NumberPressed(event.target.value)
+                });
+            }
+
+            for (let item of document.getElementsByClassName("operation_btn")){
+                item.addEventListener("click", (event) => {
+                    _OperationPressed(event.target.value)
+                });
+            }
+        }
+
+
+        function _NumberPressed(number){
+            console.log("Numb");
+            
+            if (operation.length){
+                right_op = right_op.concat(number);
+            
+            } else {
+                left_op = left_op.concat(number);
+            }
+
+            display_big.textContent = _GetCurrentExpression();
+        }
+
+
+        function _OperationPressed(symbol){
+            console.log(_GetCurrentExpression());
+            
+            if (left_op.length){
+                operation = symbol
+                display_big.textContent = _GetCurrentExpression();
+            }
+        }
+
+
+        function Calculate(){
+            let left_num = parseFloat(left_op);
+            let right_num = parseFloat(right_op);
+
+            try{
+                operations[operation](left_num, right_num);
+                display_big.textContent = result;
+                display_small.textContent = _GetCurrentExpression();
+
+                left_op = result.toString();
+                right_op = ""
+                operation = ""
+
+            } catch {
+                left_op = "";
+                right_op = "";
+                operation = "";
+                display_big.textContent = "Error";
+            };
+        }
+
+
+        function Clear(){
+            display_big.textContent = "0";
+            display_small.textContent = "0";
+            left_op = "";
+            right_op = "";
+            operation = "";
+        }
+
+
+        function Delete(){
+            if (right_op.length){
+                right_op = right_op.slice(0, -1);
+                display_big.textContent = _GetCurrentExpression();
+            } else if (operation.length){
+                operation = "";
+                display_big.textContent = left_op;
+            } else {
+                left_op = left_op.slice(0, -1);
+                display_big.textContent = left_op.length ? left_op : '0';
+            }
+        }
+
+        function _GetCurrentExpression(){
+            return left_op + operation + right_op;
+        }
+
+        SetUp();
+
     </script>
 </html>

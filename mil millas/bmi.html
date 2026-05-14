@@ -21,15 +21,23 @@
 
   <script>
     function CalcBMI(){
-    let person_id = document.getElementById("identificacion").value
-    let person_name = document.getElementById("nombre").value
-    let person_height = document.getElementById("estatura").value
-    let person_weight = document.getElementById("peso").value
+    let person_id = document.getElementById("identificacion").value;
+    let person_name = document.getElementById("nombre").value;
+    let person_height = document.getElementById("estatura").value;
+    let person_weight = document.getElementById("peso").value;
 
-    let msgformat = "**********************************************\n                              Datos Del Paciente\n\n**********************************************\n Identificacion: " + person_id + "\n\n Nombre:         " + person_name + "\n\n Estatura (m):   " + person_height + "\n\n Peso (Kg):      " + person_weight + "\n\n BMI:            " + String(person_weight / (person_height**2))
-    alert(msgformat)
+    alert(
+      "**********************************************\n" +
+      "                              Datos Del Paciente\n\n" +
+      "**********************************************\n" +
+      " Identificacion: " + person_id + 
+      "\n\n Nombre:         " + person_name + 
+      "\n\n Estatura (m):   " + person_height + 
+      "\n\n Peso (Kg):      " + person_weight + 
+      "\n\n BMI:            " + String(person_weight / (person_height**2))
+    );
     
-}
+};
 
 document.getElementById("button").addEventListener("click", CalcBMI)
   </script>
