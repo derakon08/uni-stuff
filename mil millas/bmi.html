@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <div id="app">
+    <h1>Calcule su masa muscular</h1>
+    <form class="form_list">
+      <input type="number" id="identificacion" placeholder="Ingrese su identificacion"></input><br>
+      <input type="text" id="nombre" placeholder="Ingrese su nombre"></input><br>
+      <input type="number" id="estatura" placeholder="Ingrese su estatura (m)"></input><br>
+      <input type="number" id="peso" placeholder="Ingrese su peso (kg)"></input><br>
+      <br>
+      <button type="button" id="button">Calcular</button>
+    </form>
+  </div>
+
+  <script>
+    function CalcBMI(){
+    let person_id = document.getElementById("identificacion").value
+    let person_name = document.getElementById("nombre").value
+    let person_height = document.getElementById("estatura").value
+    let person_weight = document.getElementById("peso").value
+
+    let msgformat = "**********************************************\n                              Datos Del Paciente\n\n**********************************************\n Identificacion: " + person_id + "\n\n Nombre:         " + person_name + "\n\n Estatura (m):   " + person_height + "\n\n Peso (Kg):      " + person_weight + "\n\n BMI:            " + String(person_weight / (person_height**2))
+    alert(msgformat)
+    
+}
+
+document.getElementById("button").addEventListener("click", CalcBMI)
+  </script>
+</body>
+</html>
