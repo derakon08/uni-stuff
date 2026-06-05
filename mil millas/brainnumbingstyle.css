@@ -1,0 +1,70 @@
+body{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    height: 100dvh;
+
+    overflow: hidden;
+    background-color:peru;
+}
+
+input{
+    min-height: 30px;  
+}
+
+.title{
+    font-size: larger;
+    font-weight: bold;
+}
+
+.subtitle{
+    font-weight: bold;
+}
+
+.form_list{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 1vh;
+}
+
+.modal_container{
+    display: none;
+    align-items: center;
+    justify-content: center;
+    position: absolute;
+    inset: 0;
+    z-index: 10;
+
+    background: rgba(0,0,0,0.3);
+}
+
+.modal_content{
+    justify-content: center;
+
+    padding: 3% 3% 5%;
+
+    background-color: whitesmoke;
+    border: 10px solid black;
+}
+
+.modal_container.visible{
+    display: flex;
+}
+
+#button{
+    min-height: 30px;
+    border-radius: 3px;
+}
+
+#app{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+
+    padding: 3% 3% 5%;
+
+    background-color: whitesmoke;
+    border: 10px solid black;
+}
