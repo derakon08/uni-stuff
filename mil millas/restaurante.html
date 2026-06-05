@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="es">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+        <title>Eleccion de menu</title>
+
+        <link href="brainnumbingstyle.css" rel="stylesheet">
+    </head>
+
+    <body>
+        <div id="app">
+            <p class="title">Les damos la bienvenida. Por favor llenen los siguientes datos:</p>
+
+            <br>
+            <input type="text" id="client_name" placeholder="Nombre">
+
+            <br>
+            <input type="number" id="client_phone_number" placeholder="Numero De Telefono Celular">
+
+
+            <br>
+            <select id="main-dish">
+                <option value="" disabled selected>Plato Principal</option>
+                <option value="Corriente">Corriente</option>
+                <option value="Bandeja Paisa">Bandeja Paisa</option>
+                <option value="Carne De Res Asada">Carne De Res Asada</option>
+                <option value="Carne De Cerdo Asada">Carne De Cerdo Asada</option>
+            </select>
+
+            <br>
+            <select id="drink">
+                <option value="" disabled selected>Bebida</option>
+                <option value="Limonada">Limonada</option>
+                <option value="Gaseosa">Gaseosa</option>
+                <option value="Jugo En Agua">Jugo En Agua (mango)</option>
+                <option value="Jugo En Leche">Jugo En Leche (mango)</option>
+            </select>
+
+            <br>
+            <button onclick="SetOrder()">Continuar</button>
+        </div>
+
+        <div class="modal_container" id="receipt">
+            <div class="modal_content">
+                <p class="title">Gracias por elegirnos</p>
+                <br>
+
+                <p class="subtitle">Tu orden se ve asi:</p>
+                <br>
+
+                <p class="subtitle">No. Factura</p>
+                <p id="receipt_id"></p>
+                <p class="subtitle">Id. Cliente</p>
+                <p id="client_id"></p>
+
+                <p id="order_client"></p>
+
+                <ul id="receipt_list"></ul>
+
+                <p class="subtitle">Total Con IVA:</p>
+                <p id="display_iva"></p>
+                <p id="total"></p>
+
+                <button onclick="CloseReceipt()">Cerrar</button>
+            </div>
+        </div>
+    </body>
+
+    <script>
+        let main_dish = document.getElementById("main-dish");
+        let drink = document.getElementById("drink");
+        let receipt = document.getElementById("receipt_list");
+        let receipt_modal = document.getElementById("receipt");
+        let registry = document.getElementById("registry");
+        let receipt_id = document.getElementById("receipt_id");
+        let client_id = document.getElementById("client_id");
+        let iva_display = document.getElementById("display_iva");
+        let total_price_display = document.getElementById("total");
+        let client_phone_number = document.getElementById("client_phone_number");
+        let client_name = document.getElementById("client_name");
+        let order_client = document.getElementById("order_client");
+
+        let client_amount = 0 + 1;
+        let receipt_amount = 0 + 1;
+        let iva = 0.02;
+        let items_price = 0.0;
+
+        let price_per_item = {
+            "Corriente": 13000,
+            "Bandeja Paisa": 20000,
+            "Carne De Res Asada": 10000,
+            "Carne De Cerdo Asada": 12000,
+            "Limonada": 5000,
+            "Gaseosa": 3000,
+            "Jugo En Agua": 5700,
+            "Jugo En Leche": 7000
+        };
+
+
+        function SetOrder(){
+            if (client_name.value === "" || client_phone_number.value === ""){
+                client_name.style = "border: solid red;";
+                client_phone_number.style = "border: solid red;";
+                alert("Por favor llene todos los campos necesarios.");
+                return;
+            }
+            else{
+                client_name.style = "";
+                client_phone_number.style = "";
+            }
+
+            receipt.innerHTML = "";
+            items_price = 0.0;
+
+            if (main_dish.value != ""){
+                items_price += AddReceiptItem(main_dish.value);
+            }
+            
+            if (drink.value != ""){
+                items_price += AddReceiptItem(drink.value);
+            }
+
+            receipt_id.textContent = (receipt_amount / 1000000).toString().substring(2);
+            client_id.textContent = (client_amount / 1000000).toString().substring(2);
+            order_client.textContent = `Nombre: ${client_name.value} Telefono: ${client_phone_number.value}`;
+            iva_display.textContent = `${iva * 100}% IVA`;
+            total_price_display.textContent = `Total: $${items_price + items_price * iva}`;
+            receipt_modal.classList.add("visible");
+        }
+
+
+        function CloseReceipt(){
+            receipt_modal.classList.remove("visible");
+        }
+
+
+        function AddReceiptItem(menu_item){
+            let node_innerhtml = 
+            "<li>" +
+                "<p>" + menu_item + ": $" + price_per_item[menu_item] + "</p>" +
+            "</li>";
+
+            receipt.insertAdjacentHTML("beforeend", node_innerhtml);
+
+            return price_per_item[menu_item];
+        }
+    </script>
+
+</html>
