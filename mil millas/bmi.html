@@ -29,7 +29,11 @@
     let person_name = document.getElementById("nombre").value;
     let person_height = document.getElementById("estatura").value;
     let person_weight = document.getElementById("peso").value;
+
+    //calculo de bmi
     let bmi = String(person_weight / (person_height**2));
+
+
     document.getElementById("display").textContent = "BMI: " + bmi;
 
     alert(

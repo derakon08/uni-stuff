@@ -1,4 +1,8 @@
-const express = require('express');
+import fs from 'fs/promises';
+import path from 'path';
+import express from 'express'
+
+const expresslib = express;
 const app = express();
 const port = 8000;
 
@@ -10,7 +14,7 @@ app.get('/', (req, res) => {
 });
 
 app.get('/datos', (req, res) => {
-  res.send('¡Hello data!');
+  res.send(`<h1>¡Hello data!</h1><p>Port: ${port}<p>`);
 });
 
 app.get('/botones', (req, res) => {
@@ -43,5 +47,35 @@ app.get('/botones', (req, res) => {
 });
 
 app.listen(port, () => {
-  console.log("Servidor escuchando en http://localhost:" + port); //backticks are u+0060
+  console.log(`Servidor escuchando en http://localhost: ${port}`); //backticks are u+0060
 });
+
+
+async function leerDatos() {
+    try {
+        const data = await fs.readFile(FILE_PATH, 'utf-8');
+        return JSON.parse(data);
+    } catch (error) {
+        console.log("unable to make request");
+        return [];
+    }
+}
+
+async function guardarDatos(datos) {
+    await fs.writeFile(FILE_PATH, JSON.stringify(datos, null, 2), 'utf-8');
+}
+
+// 3. GUARDAR / CREAR (POST)
+app.post('/usuarios', async (req, res) => {
+    const usuarios = await leerDatos();
+    
+    const nuevoUsuario = {
+        id: usuarios.length > 0 ? usuarios[usuarios.length - 1].id + 1 : 1,
+        nombre: req.body.nombre,
+        email: req.body.email
+    };
+
+    usuarios.push(nuevoUsuario);
+    await guardarDatos(usuarios);
+    res.status(201).json(nuevoUsuario);
+})

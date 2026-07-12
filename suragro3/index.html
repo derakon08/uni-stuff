@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>SURAGRO | Sistema de Inventario</title>
+
+    <!-- Google Fonts -->
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <link href="https://fonts.googleapis.com/css2?family=Merriweather:wght@300;400;700&family=Oswald:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+    <!-- Material Symbols -->
+
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet">
+
+    <link rel="stylesheet" href="css/style.css">
+
+</head>
+
+<body>
+
+<div class="app">
+
+    <!-- =======================================
+         SIDEBAR
+    ======================================== -->
+
+    <aside class="sidebar">
+
+        <div class="sidebar-header">
+
+            <div class="logo">
+
+                <div class="logo-icon">
+
+                    <span class="material-symbols-outlined">
+
+                        science
+
+                    </span>
+
+                </div>
+
+                <div class="logo-text">
+
+                    <h1>SUAGRO</h1>
+
+                    <p>Centralized Inventory</p>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <nav class="navigation">
+
+            <button class="nav-item active"
+                    data-page="dashboard">
+
+                <span class="material-symbols-outlined">
+
+                    dashboard
+
+                </span>
+
+                <span>Dashboard</span>
+
+            </button>
+
+            <button class="nav-item"
+                    data-page="inventory">
+
+                <span class="material-symbols-outlined">
+
+                    inventory_2
+
+                </span>
+
+                <span>Inventario</span>
+
+            </button>
+
+            <button class="nav-item"
+                    data-page="products">
+
+                <span class="material-symbols-outlined">
+
+                    category
+
+                </span>
+
+                <span>Productos</span>
+
+            </button>
+
+            <button class="nav-item" data-page="branches">
+
+                <span class="material-symbols-outlined">
+
+                    location_city
+
+                </span>
+
+                <span>Sedes</span>
+
+            </button>
+
+            <button class="nav-item" data-page="users">
+
+                <span class="material-symbols-outlined">
+
+                    group
+
+                </span>
+
+                <span>Usuarios</span>
+
+            </button>
+
+            <button class="nav-item" data-page="reports">
+
+                <span class="material-symbols-outlined">
+
+                    analytics
+
+                </span>
+
+                <span>Reportes</span>
+
+            </button>
+        </nav>
+
+        <div class="sidebar-footer">
+            <button class="nav-item">
+                <span class="material-symbols-outlined">
+
+                    settings
+
+                </span>
+
+                <span>Configuración</span>
+
+            </button>
+
+            <button class="nav-item">
+                <span class="material-symbols-outlined">
+
+                    logout
+
+                </span>
+
+                <span>Cerrar sesión</span>
+
+            </button>
+        </div>
+    </aside>
+
+    <!-- =======================================
+         WORKSPACE
+    ======================================== -->
+
+    <div class="workspace">
+        <header class="topbar">
+            <div class="page-info">
+                <h2 id="page-title">
+
+                    Dashboard
+
+                </h2>
+
+            </div>
+
+            <div class="toolbar">
+                <button class="icon-button">
+                    <span class="material-symbols-outlined">
+
+                        notifications
+
+                    </span>
+
+                </button>
+
+                <button class="icon-button">
+                    <span class="material-symbols-outlined">
+
+                        account_circle
+
+                    </span>
+
+                </button>
+            </div>
+        </header>
+
+        <!-- ===================================
+             DYNAMIC CONTENT
+        ==================================== -->
+
+        <main id="content" class="content">
+            <section class="page">
+                <header class="page-header">
+                    <div>
+                        <h2>
+
+                            Bienvenido
+
+                        </h2>
+
+                        <p>
+
+                            Seleccione una opción del menú lateral para comenzar.
+
+                        </p>
+                    </div>
+                </header>
+
+                <section id="page-body">
+
+                    <!-- Dynamic page content -->
+
+                </section>
+            </section>
+        </main>
+    </div>
+</div>
+
+<script type="module" src="./js/main.js"></script>
+
+</body>
+</html>
