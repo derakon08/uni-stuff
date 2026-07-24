@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>SURAGRO | Sistema de Inventario</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <link href="https://fonts.googleapis.com/css2?family=Merriweather:wght@300;400;700&family=Oswald:wght@300;400;500;600&display=swap"
+          rel="stylesheet">
+
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined"
+          rel="stylesheet">
+
+    <link rel="stylesheet" href="/css/style.css">
+
+</head>
+
+<body>
+
+<div class="app">
+
+    <aside class="sidebar">
+
+        <div class="sidebar-header">
+            <div class="logo">
+                <div class="logo-icon">
+                    <span class="material-symbols-outlined">science</span>
+                </div>
+
+                <div class="logo-text">
+                    <h1>SURAGRO</h1>
+                    <p>Centralized Inventory</p>
+                </div>
+            </div>
+        </div>
+
+        <nav class="navigation">
+            <button class="nav-item active">
+                <span class="material-symbols-outlined">inventory_2</span>
+                <span>Inventario</span>
+            </button>
+        </nav>
+
+        <div class="sidebar-footer">
+            <button class="nav-item">
+                <span class="material-symbols-outlined">logout</span>
+                <span>Cerrar sesión</span>
+            </button>
+        </div>
+
+    </aside>
+
+    <div class="workspace">
+
+        <header class="topbar">
+
+            <div class="page-info">
+                <h2>Dashboard</h2>
+            </div>
+
+            <div class="toolbar">
+
+                <button class="icon-button">
+                    <span class="material-symbols-outlined">notifications</span>
+                </button>
+
+                <button class="icon-button">
+                    <span class="material-symbols-outlined">account_circle</span>
+                </button>
+
+            </div>
+
+        </header>
+
+        <main class="content">
+
+            <section class="page">
+
+                <header class="page-header">
+                    <div>
+                        <h2>Gestión de productos</h2>
+                        <p>Registrar, buscar y administrar productos.</p>
+                    </div>
+                </header>
+
+                <section class="cards inventory-layout">
+
+                    <!-- FORM -->
+
+                    <article class="card">
+
+                        <div class="card-header">
+                            <h3>Buscar / Registrar</h3>
+                        </div>
+
+                        <form th:action="@{/productos}"
+                              th:object="${producto}"
+                              method="post"
+                              class="filters">
+
+                            <div class="input-group">
+                                <label for="nombre">Nombre</label>
+                                <input id="nombre"
+                                       type="text"
+                                       th:field="*{nombre}"
+                                       maxlength="100">
+                            </div>
+
+                            <div class="input-group">
+                                <label for="tipo">Tipo</label>
+                                <input id="tipo"
+                                       type="text"
+                                       th:field="*{tipo}"
+                                       maxlength="25">
+                            </div>
+
+                            <div class="input-group">
+                                <label for="descripcion">Descripción</label>
+                                <textarea id="descripcion"
+                                          th:field="*{descripcion}"
+                                          rows="4"
+                                          maxlength="500"></textarea>
+                            </div>
+
+                            <div class="input-group">
+                                <label for="proveedor">Proveedor</label>
+                                <input id="proveedor"
+                                       type="text"
+                                       th:field="*{proveedor}"
+                                       maxlength="45">
+                            </div>
+
+                            <div class="input-group">
+                                <label for="ingredienteActivo">Ingrediente activo</label>
+                                <input id="ingredienteActivo"
+                                       type="text"
+                                       th:field="*{ingredienteActivo}"
+                                       maxlength="100">
+                            </div>
+
+                            <div class="input-group">
+                                <label for="concentracion">Concentración</label>
+                                <input id="concentracion"
+                                       type="text"
+                                       th:field="*{concentracion}"
+                                       maxlength="45">
+                            </div>
+
+                            <div class="input-group">
+                                <label for="presentacion">Presentación</label>
+                                <input id="presentacion"
+                                       type="text"
+                                       th:field="*{presentacion}"
+                                       maxlength="10">
+                            </div>
+
+                            <p th:if="${alerta != null}"
+                               th:text="${alerta}"></p>
+
+                            <div class="card-header">
+
+                                <button type="submit"
+                                        class="btn btn-secondary"
+                                        name="action"
+                                        value="search">
+                                    Buscar
+                                </button>
+
+                                <button type="submit"
+                                        class="button-primary"
+                                        name="action"
+                                        value="add">
+                                    Agregar
+                                </button>
+
+                            </div>
+
+                        </form>
+
+                    </article>
+
+                    <!-- PRODUCT LIST -->
+
+                    <article class="card">
+
+                        <div class="card-header">
+                            <h3>Productos registrados</h3>
+                        </div>
+
+                        <div class="inventory-list">
+
+                            <form th:each="product : ${productos}"
+                                  th:action="@{/productos}"
+                                  method="post">
+
+                                <input type="hidden"
+                                       name="idProducto"
+                                       th:value="${product.id}">
+
+                                <details th:id="${product.id}">
+
+                                    <summary class="inventory-item">
+
+                                        <div>
+                                            <h4 th:text="${product.nombre}"></h4>
+                                            <p th:text="${product.tipo}"></p>
+                                        </div>
+
+                                    </summary>
+
+                                    <div class="filters">
+
+                                        <div class="input-group">
+                                            <label>Descripción</label>
+                                            <p th:text="${product.descripcion}"></p>
+                                        </div>
+
+                                        <div class="input-group">
+                                            <label>Proveedor</label>
+                                            <p th:text="${product.proveedor}"></p>
+                                        </div>
+
+                                        <div class="input-group">
+                                            <label>Ingrediente activo</label>
+                                            <p th:text="${product.ingredienteActivo}"></p>
+                                        </div>
+
+                                        <div class="input-group">
+                                            <label>Concentración</label>
+                                            <p th:text="${product.concentracion}"></p>
+                                        </div>
+
+                                        <div class="input-group">
+                                            <label>Presentación</label>
+                                            <p th:text="${product.presentacion}"></p>
+                                        </div>
+
+                                        <button class="button-red btn"
+                                                name="action"
+                                                value="delete">
+                                            Eliminar
+                                        </button>
+
+                                    </div>
+
+                                </details>
+
+                            </form>
+
+                        </div>
+
+                    </article>
+
+                </section>
+
+            </section>
+
+        </main>
+
+    </div>
+
+</div>
+
+</body>
+</html>
