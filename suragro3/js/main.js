@@ -3,6 +3,7 @@
     import Dashboard from "../pages/dashboard.js";
     import Inventory from "../pages/inventory.js";
     import ProductDetail from "../pages/productDetails.js";
+    import NewProduct from "../pages/createProduct.js"
     import UserList from "../pages/userList.js";
     import UserDetail from "../pages/userDetail.js";
     import NewUser from "../pages/newUser.js";
@@ -22,7 +23,8 @@
         "users": UserList,
         "user-detail": UserDetail,
         "login": Login,
-        "new-user": NewUser
+        "new-user": NewUser,
+        "new-product": NewProduct
     });
 
     const section = {

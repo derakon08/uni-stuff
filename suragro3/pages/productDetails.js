@@ -1,6 +1,6 @@
 "use strict";
 
-export default function renderProductDetails() {
+export default function ProductDetails() {
     return `
         <section class="page">
 
