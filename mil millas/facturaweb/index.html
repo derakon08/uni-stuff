@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Generador de Facturas</title>
+
+    <!-- Fuente moderna de Google Fonts para mejor legibilidad -->
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&display=swap" rel="stylesheet">
+</head>
+<style>
+    * {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    /* Fondo gris azulado muy suave: Transmite calma y profesionalismo */
+    background-color: #f0f2f5;
+    font-family: 'Roboto', sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    color: #333;
+}
+
+.contenedor {
+    /* Blanco puro: Transmite limpieza y orden */
+    background: #ffffff;
+    width: 90%;
+    max-width: 500px; /* Limita el ancho para que no se vea estirado */
+    padding: 40px;
+    border-radius: 12px;
+    /* Sombra suave: Da efecto de elevación (Material Design) */
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+    text-align: center;
+}
+
+header h1 {
+    /* Azul corporativo oscuro: Confianza, seguridad, inteligencia */
+    color: #2c3e50;
+    font-size: 24px;
+    margin-bottom: 5px;
+    font-weight: 700;
+}
+
+.subtitulo {
+    color: #7f8c8d;
+    font-size: 14px;
+    margin-bottom: 30px;
+    font-weight: 300;
+}
+
+/* Estilos para los grupos de inputs */
+.grupo-input {
+    text-align: left;
+    margin-bottom: 15px;
+}
+
+.grupo-input label {
+    display: block;
+    margin-bottom: 5px;
+    font-size: 13px;
+    color: #555;
+    font-weight: 500;
+}
+
+input[type="text"],
+input[type="number"],
+input[type="date"] {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    font-size: 14px;
+    transition: all 0.3s ease;
+    background-color: #fafafa;
+}
+
+/* Efecto al hacer clic en un campo: Borde azul suave */
+input:focus {
+    border-color: #3498db;
+    background-color: #fff;
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.1);
+}
+
+/* Disposición en columnas para campos cortos */
+.fila-doble {
+    display: flex;
+    gap: 15px;
+}
+
+.fila-doble .grupo-input {
+    flex: 1;
+}
+
+/* Botón principal */
+.boton-factura {
+    width: 100%;
+    padding: 14px;
+    margin-top: 20px;
+    /* Verde Esmeralda: Crecimiento, éxito, dinero, acción positiva */
+    background-color: #27ae60;
+    color: white;
+    font-size: 16px;
+    font-weight: bold;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.1s ease;
+    box-shadow: 0 4px 6px rgba(39, 174, 96, 0.2);
+}
+
+.boton-factura:hover {
+    background-color: #219150; /* Verde un poco más oscuro al pasar el mouse */
+}
+
+.boton-factura:active {
+    transform: scale(0.98); /* Efecto de presionado */
+}
+
+/* Ajustes para móviles */
+@media (max-width: 600px) {
+    .contenedor {
+        width: 95%;
+        padding: 20px;
+    }
+    
+    .fila-doble {
+        flex-direction: column;
+        gap: 0;
+    }
+}
+</style>
+
+<body>
+    <div class="contenedor">
+        <header>
+            <h1>Proyecto Factura Web</h1>
+            <p class="subtitulo">Sistema si te la comes</p>
+        </header>
+        
+        <form action="">
+            <div class="grupo-input">
+                <label for="id">Identificación Cliente</label>
+                <input type="text" name="id" id="id" placeholder="Ej: 1098765432">
+            </div>
+
+            <div class="grupo-input">
+                <label for="nom">Nombres y Apellidos</label>
+                <input type="text" name="nom" id="nom" placeholder="Nombre completo">
+            </div>
+
+            <div class="grupo-input">
+                <label for="dir">Dirección</label>
+                <input type="text" name="dir" id="dir" placeholder="Calle, Ciudad">
+            </div>
+
+            <div class="grupo-input">
+                <label for="tel">Teléfono</label>
+                <input type="text" name="tel" id="tel" placeholder="Número de contacto">
+            </div>
+
+            <div class="fila-doble">
+                <div class="grupo-input">
+                    <label for="nfact">N° Factura</label>
+                    <input type="text" name="nfact" id="nfact" placeholder="001-002">
+                </div>
+                <div class="grupo-input">
+                    <label for="fecha">Fecha</label>
+                    <input type="date" name="fecha" id="fecha"> <!-- Cambiado a date para mejor UX -->
+                </div>
+            </div>
+
+            <div class="grupo-input">
+                <label for="rs">Razón Social</label>
+                <input type="text" name="rs" id="rs" placeholder="Empresa o Particular">
+            </div>
+
+            <div class="grupo-input">
+                <label for="prod">Producto</label>
+                <input type="text" name="prod" id="prod" placeholder="Descripción del producto">
+            </div>
+
+            <div class="fila-doble">
+                <div class="grupo-input">
+                    <label for="cant">Cantidad (Kg)</label>
+                    <input type="number" name="cant" id="cant" placeholder="0.00">
+                </div>
+                <div class="grupo-input">
+                    <label for="vu">Valor Unitario ($)</label>
+                    <input type="number" name="vu" id="vu" placeholder="0.00">
+                </div>
+            </div>
+
+            <input type="button" class="boton-factura" value="Generar Factura" onclick="buscar()">
+        </form> 
+    </div>
+</body>
+
+<script>
+function buscar(){
+    rs = document.getElementById("rs").value;
+    nfact = document.getElementById("nfact").value;
+    fecha = document.getElementById("fecha").value;
+    id = document.getElementById("id").value;
+    nom = document.getElementById("nom").value;
+    dir = document.getElementById("dir").value;
+    tel = document.getElementById("tel").value;
+    vu = document.getElementById("vu").value;
+    prod = document.getElementById("prod").value;
+    cant = document.getElementById("cant").value;
+    subtotal = vu * cant;
+    iva = subtotal * 0.19;
+    total = subtotal + iva;
+
+    //apply discounts
+    if (total > 199999) {
+        total -= total * 0.2;
+    }
+
+    else if (total > 99999) {
+        total -= total * 0.1;
+    }
+
+    else if (total > 49999) {
+        total -= total * 0.05;
+    }
+
+    alert("Razon Social: " + rs +
+        "\n # Factura: " + nfact + " Fecha: " + fecha +
+        "\n************************************************" + 
+        "\n************ Datos del Cliente *****************" +
+        "\n************************************************" +
+        "\n Id: " + id +
+        "\n Cliente: " + nom +
+        "\n Dirección: " + dir +
+        "\n Teléfono; " + tel +
+        "\n************************************************" +
+        "\n************ Datos del Producto ****************" +
+        "\n************************************************" +
+        "\n Producto: " + prod +
+        "\nCantidad: " + cant + " KG" +
+        "\n Valor Unitario: $" + Number(vu).toLocaleString('es-co') +
+        "\n Iva: $" + iva + 
+        "\n Subtotal: $" + subtotal.toLocaleString('es-co') +
+        "\n************************************************" +
+        "\n Total: $" + total.toLocaleString('es-co') + " Pesos" +
+        "\n************************************************" + 
+        "\n============== GRACIAS POR SU COMPRA ===========" +
+        "\n================================================");
+    }
+</script>
+
+</html>

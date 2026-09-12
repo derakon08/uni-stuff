@@ -1,0 +1,17 @@
+[
+  {
+    "id": 1,
+    "nombre": "Juanito alimaña",
+    "email": "juan@gmail.com"
+  },
+  {
+    "id": 2,
+    "nombre": "pedro navaja",
+    "email": "pedritonava@gmail.com"
+  },
+  {
+    "id": 3,
+    "nombre": "cipriano",
+    "email": "cipriano@gmail.com"
+  }
+]

@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Generador de Facturas</title>
+
+    <!-- Fuente moderna de Google Fonts para mejor legibilidad -->
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+</head>
+
+<!--  Why do these comments look so AI LMAO -->
+<style> 
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    background-color: #f0f2f5;
+    font-family: 'Roboto', sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    color: #333;
+}
+
+.contenedor {
+    background: #ffffff;
+    width: 90%;
+    max-width: 500px; /* Limita el ancho para que no se vea estirado */
+    padding: 40px;
+    border-radius: 12px;
+    /* Sombra suave: Da efecto de elevación (Material Design) */
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+    text-align: center;
+}
+
+header h1 {
+    color: #2c3e50;
+    font-size: 24px;
+    margin-bottom: 5px;
+    font-weight: 700;
+}
+
+.subtitulo {
+    color: #7f8c8d;
+    font-size: 14px;
+    margin-bottom: 30px;
+    font-weight: 300;
+}
+
+
+.grupo-input {
+    text-align: left;
+    margin-bottom: 15px;
+}
+
+.grupo-input label {
+    display: block;
+    margin-bottom: 5px;
+    font-size: 13px;
+    color: #555;
+    font-weight: 500;
+}
+
+input[type="text"],
+input[type="number"],
+input[type="date"] {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    font-size: 14px;
+    transition: all 0.3s ease;
+    background-color: #fafafa;
+}
+
+/* Efecto al hacer clic en un campo: Borde azul suave */
+input:focus {
+    border-color: #3498db;
+    background-color: #fff;
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.1);
+}
+
+/* Disposición en columnas para campos cortos */
+.fila-doble {
+    display: flex;
+    gap: 15px;
+}
+
+.fila-doble .grupo-input {
+    flex: 1;
+}
+
+
+.boton-factura {
+    width: 100%;
+    padding: 14px;
+    margin-top: 20px;
+
+    background-color: #27ae60;
+    color: white;
+    font-size: 16px;
+    font-weight: bold;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.1s ease;
+    box-shadow: 0 4px 6px rgba(39, 174, 96, 0.2);
+}
+
+.boton-factura:hover {
+    background-color: #219150; /* Verde un poco más oscuro al pasar el mouse */
+}
+
+.boton-factura:active {
+    transform: scale(0.98); /* Efecto de presionado */
+}
+
+/* Ajustes para móviles */
+@media (max-width: 600px) {
+    .contenedor {
+        width: 95%;
+        padding: 20px;
+    }
+    
+    .fila-doble {
+        flex-direction: column;
+        gap: 0;
+    }
+}
+</style>
+
+<body>
+    <div class="contenedor">
+        <header>
+            <h1>Proyecto Factura Web</h1>
+            <p class="subtitulo">Sistema si te la comes</p>
+        </header>
+        
+        <form action="">
+            <div class="grupo-input">
+                <label for="id">Identificación Cliente</label>
+                <input type="text" name="id" id="id" placeholder="Ej: 1098765432">
+            </div>
+
+            <div class="grupo-input">
+                <label for="nom">Nombres y Apellidos</label>
+                <input type="text" name="nom" id="nom" placeholder="Nombre completo">
+            </div>
+
+            <div class="grupo-input">
+                <label for="dir">Dirección</label>
+                <input type="text" name="dir" id="dir" placeholder="Calle, Ciudad">
+            </div>
+
+            <div class="grupo-input">
+                <label for="tel">Teléfono</label>
+                <input type="text" name="tel" id="tel" placeholder="Número de contacto">
+            </div>
+
+            <div class="fila-doble">
+                <div class="grupo-input">
+                    <label for="nfact">N° Factura</label>
+                    <input type="text" name="nfact" id="nfact" placeholder="001-002">
+                </div>
+                <div class="grupo-input">
+                    <label for="fecha">Fecha</label>
+                    <input type="date" name="fecha" id="fecha"> <!-- Cambiado a date para mejor UX -->
+                </div>
+            </div>
+
+            <div class="grupo-input">
+                <label for="rs">Razón Social</label>
+                <input type="text" name="rs" id="rs" placeholder="Empresa o Particular">
+            </div>
+
+            <div class="grupo-input">
+                <label for="prod">Producto</label>
+                <input type="text" name="prod" id="prod" placeholder="Descripción del producto">
+            </div>
+
+            <div class="fila-doble">
+                <div class="grupo-input">
+                    <label for="cant">Cantidad (Kg)</label>
+                    <input type="number" name="cant" id="cant" placeholder="0.00">
+                </div>
+                <div class="grupo-input">
+                    <label for="vu">Valor Unitario ($)</label>
+                    <input type="number" name="vu" id="vu" placeholder="0.00">
+                </div>
+            </div>
+
+            <input type="button" class="boton-factura" value="Generar Factura" onclick="buscar()">
+        </form> 
+    </div>
+</body>
+
+<script>
+function buscar() {
+    // 1. Obtener valores
+    let rs = document.getElementById("rs").value;
+    let nfact = document.getElementById("nfact").value;
+    let fecha = document.getElementById("fecha").value;
+    let id = document.getElementById("id").value;
+    let nom = document.getElementById("nom").value;
+    let dir = document.getElementById("dir").value;
+    let tel = document.getElementById("tel").value;
+    
+    // Convertimos a números. Si está vacío, asume 0 para evitar errores
+    let vu = parseFloat(document.getElementById("vu").value) || 0;
+    let cant = parseFloat(document.getElementById("cant").value) || 0;
+    let prod = document.getElementById("prod").value;
+
+    // Validación básica
+    if(nom.trim() === "" || vu === 0) {
+        Swal.fire({
+            icon: 'warning',
+            title: 'Datos Incompletos',
+            text: 'Por favor, ingrese al menos el nombre del cliente y el valor unitario.',
+            confirmButtonColor: '#3498db' // Azul para advertencia/informativo
+        });
+        return;
+    }
+
+    // 2. Cálculos
+    let subtotal = vu * cant;
+    let iva = subtotal * 0.19;
+    let total = subtotal + iva;
+
+    // Formateador de moneda (Pesos Colombianos)
+    const formatoMoneda = new Intl.NumberFormat('es-CO', {
+        style: 'currency',
+        currency: 'COP',
+        minimumFractionDigits: 0
+    });
+
+    // 3. Construir el HTML de la factura (Diseño limpio tipo ticket)
+    let contenidoFactura = `
+        <div style="text-align: left; font-family: 'Helvetica', sans-serif; font-size: 14px; color: #333;">
+            
+            <!-- Encabezado -->
+            <div style="border-bottom: 2px solid #2c3e50; padding-bottom: 10px; margin-bottom: 10px;">
+                <h3 style="margin: 0; color: #2c3e50; text-transform: uppercase;">${rs || 'Sin Razón Social'}</h3>
+                <small style="color: #7f8c8d;">NIT: ${id || 'N/A'} | Factura: ${nfact}</small>
+            </div>
+
+            <!-- Datos Cliente -->
+            <p style="margin: 5px 0;"><strong>Cliente:</strong> ${nom}</p>
+            <p style="margin: 5px 0;"><strong>Dirección:</strong> ${dir}</p>
+            <p style="margin: 5px 0;"><strong>Teléfono:</strong> ${tel}</p>
+            <p style="margin: 5px 0;"><strong>Fecha:</strong> ${fecha}</p>
+
+            <hr style="border: 0; border-top: 1px dashed #ccc; margin: 15px 0;">
+
+            <!-- Detalle Producto -->
+            <table style="width: 100%; border-collapse: collapse; margin-bottom: 10px;">
+                <tr>
+                    <td style="text-align: left;"><strong>Producto:</strong></td>
+                    <td style="text-align: right;">${prod}</td>
+                </tr>
+                <tr>
+                    <td style="text-align: left;">Cantidad:</td>
+                    <td style="text-align: right;">${cant} Kg</td>
+                </tr>
+                <tr>
+                    <td style="text-align: left;">V. Unitario:</td>
+                    <td style="text-align: right;">${formatoMoneda.format(vu)}</td>
+                </tr>
+            </table>
+
+            <hr style="border: 0; border-top: 1px dashed #ccc; margin: 15px 0;">
+
+            <!-- Totales -->
+            <div style="background-color: #f9f9f9; padding: 10px; border-radius: 4px;">
+                <div style="display: flex; justify-content: space-between; margin-bottom: 5px;">
+                    <span>Subtotal:</span>
+                    <span>${formatoMoneda.format(subtotal)}</span>
+                </div>
+                <div style="display: flex; justify-content: space-between; margin-bottom: 5px; color: #7f8c8d;">
+                    <span>IVA (19%):</span>
+                    <span>${formatoMoneda.format(iva)}</span>
+                </div>
+                <div style="display: flex; justify-content: space-between; margin-top: 10px; font-weight: bold; font-size: 18px; color: #27ae60;">
+                    <span>TOTAL A PAGAR:</span>
+                    <span>${formatoMoneda.format(total)}</span>
+                </div>
+            </div>
+            
+            <p style="text-align: center; margin-top: 15px; font-size: 12px; color: #aaa;">
+                Gracias por su confianza
+            </p>
+        </div>
+    `;
+
+    // 4. Mostrar SweetAlert SIN el gato y SIN morado
+    Swal.fire({
+        title: 'Factura Generada',
+        html: contenidoFactura,
+        width: 450, // Un poco más ancho para que se vea bien la tabla
+        backdrop: `
+            rgba(44, 62, 80, 0.7) 
+            url("") 
+            left top 
+            no-repeat
+        `, // Fondo oscuro serio, sin imágenes
+        confirmButtonText: 'Aceptar',
+        confirmButtonColor: '#27ae60', // Verde éxito
+        buttonsStyling: true,
+        customClass: {
+            popup: 'animated fadeInDown faster'
+        }
+    });
+}
+</script>
+
+</html>
